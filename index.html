@@ -19,12 +19,16 @@
             background: #121212;
             color: white;
             text-align: center;
+            overflow: hidden;
         }
         .container {
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 20px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1s ease-out, transform 1s ease-out;
         }
         h1 {
             font-size: 2.5rem;
@@ -85,18 +89,55 @@
             background: #121212;
             color: white;
         }
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #121212;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 2rem;
+            transition: opacity 0.8s ease-out;
+        }
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+        .typing {
+            display: inline-block;
+            white-space: nowrap;
+            overflow: hidden;
+            border-right: 3px solid white;
+            width: 0;
+            animation: typing 3s steps(30, end) forwards;
+        }
     </style>
     <script>
         function toggleTheme() {
             document.body.classList.toggle('light-mode');
         }
+        window.onload = function() {
+            setTimeout(() => {
+                document.querySelector('.loading-screen').style.opacity = '0';
+                setTimeout(() => {
+                    document.querySelector('.loading-screen').style.display = 'none';
+                    document.querySelector('.container').style.opacity = '1';
+                    document.querySelector('.container').style.transform = 'translateY(0)';
+                }, 800);
+            }, 2000);
+        }
     </script>
 </head>
 <body>
+    <div class="loading-screen">Loading...</div>
     <button class="toggle-theme" onclick="toggleTheme()">Toggle Theme</button>
     <div class="container">
-        <img src="profile.jpeg" alt="Profile Picture" class="profile-img">
-        <h1>Cristiano Barbaria</h1>
+        <img src="profile.jpg" alt="Profile Picture" class="profile-img">
+        <h1><span class="typing">Cristiano Barbaria</span></h1>
         <p>Cyber Investigations | Digital Forensics | DJ</p>
         <p>Passionate about cybersecurity and electronic music. Exploring the world one beat and byte at a time.</p>
         <div class="buttons">
