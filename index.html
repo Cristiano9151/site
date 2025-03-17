@@ -22,6 +22,10 @@
             overflow-x: hidden;
             min-height: 100vh;
             transition: background-color 0.5s ease, color 0.5s ease;
+            /* Fixed height on mobile to prevent scrolling */
+            height: 100%;
+            position: fixed;
+            width: 100%;
         }
         header {
             width: 100%;
@@ -69,6 +73,9 @@
             width: 100%;
             padding-top: 60px;
             padding-bottom: 60px;
+            /* Make content fit in viewport without scrolling */
+            overflow-y: auto;
+            max-height: 100vh;
         }
         .container {
             display: flex;
@@ -258,6 +265,13 @@
         
         /* Media query for mobile devices */
         @media (max-width: 768px) {
+            html, body {
+                overflow: hidden;
+                position: fixed;
+                height: 100%;
+                width: 100%;
+            }
+            
             /* Hide desktop elements */
             header {
                 display: none;
@@ -328,6 +342,7 @@
                 transition: left 0.3s ease;
                 padding-top: 70px;
                 box-shadow: 5px 0 15px rgba(0, 0, 0, 0.3);
+                overflow-y: auto;
             }
             
             .mobile-menu.active {
@@ -370,11 +385,16 @@
             .main-wrapper {
                 padding-top: 70px;
                 padding-bottom: 70px;
+                height: 100vh;
+                overflow-y: auto;
+                -webkit-overflow-scrolling: touch;
             }
             
             .container {
                 padding: 20px;
                 gap: 20px;
+                height: auto;
+                min-height: calc(100vh - 140px);
             }
             
             .profile-img {
@@ -478,6 +498,26 @@
             } else {
                 themeButton.innerHTML = '☀️';
             }
+            
+            // Prevent default behavior for hash links and implement smooth scrolling
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const mainWrapper = document.querySelector('.main-wrapper');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        mainWrapper.scrollTo({
+                            top: targetElement.offsetTop - 70,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
             
             // Setup mobile menu links to close menu when clicked
             const mobileLinks = document.querySelectorAll('.mobile-menu a');
