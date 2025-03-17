@@ -115,28 +115,40 @@
             width: 0;
             animation: typing 3s steps(30, end) forwards;
         }
+        @keyframes dots {
+            0% { content: "Loading"; }
+            33% { content: "Loading."; }
+            66% { content: "Loading.."; }
+            100% { content: "Loading..."; }
+        }
+        .loading-text::after {
+            content: "Loading";
+            animation: dots 1s infinite steps(1, end);
+        }
     </style>
     <script>
         function toggleTheme() {
             document.body.classList.toggle('light-mode');
         }
         window.onload = function() {
+            let loadingScreen = document.querySelector('.loading-screen');
+            let container = document.querySelector('.container');
             setTimeout(() => {
-                document.querySelector('.loading-screen').style.opacity = '0';
+                loadingScreen.style.opacity = '0';
                 setTimeout(() => {
-                    document.querySelector('.loading-screen').style.display = 'none';
-                    document.querySelector('.container').style.opacity = '1';
-                    document.querySelector('.container').style.transform = 'translateY(0)';
+                    loadingScreen.style.display = 'none';
+                    container.style.opacity = '1';
+                    container.style.transform = 'translateY(0)';
                 }, 800);
             }, 2000);
         }
     </script>
 </head>
 <body>
-    <div class="loading-screen">Loading...</div>
+    <div class="loading-screen"><span class="loading-text"></span></div>
     <button class="toggle-theme" onclick="toggleTheme()">Toggle Theme</button>
     <div class="container">
-        <img src="profile.jpg" alt="Profile Picture" class="profile-img">
+        <img src="profile.jpeg" alt="Profile Picture" class="profile-img">
         <h1><span class="typing">Cristiano Barbaria</span></h1>
         <p>Cyber Investigations | Digital Forensics | DJ</p>
         <p>Passionate about cybersecurity and electronic music. Exploring the world one beat and byte at a time.</p>
