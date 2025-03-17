@@ -30,9 +30,17 @@
             font-size: 2.5rem;
             font-weight: bold;
         }
+        .profile-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 3px solid white;
+            object-fit: cover;
+        }
         p {
             font-size: 1.2rem;
             opacity: 0.8;
+            max-width: 400px;
         }
         .buttons {
             display: flex;
@@ -50,15 +58,51 @@
             background: white;
             color: #121212;
         }
+        .toggle-theme {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: 2px solid white;
+            color: white;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 8px;
+        }
+        .toggle-theme:hover {
+            background: white;
+            color: #121212;
+        }
+        body.light-mode {
+            background: #f4f4f4;
+            color: #121212;
+        }
+        body.light-mode a {
+            color: #121212;
+            border-color: #121212;
+        }
+        body.light-mode a:hover {
+            background: #121212;
+            color: white;
+        }
     </style>
+    <script>
+        function toggleTheme() {
+            document.body.classList.toggle('light-mode');
+        }
+    </script>
 </head>
 <body>
+    <button class="toggle-theme" onclick="toggleTheme()">Toggle Theme</button>
     <div class="container">
+        <img src="profile.jpeg" alt="Profile Picture" class="profile-img">
         <h1>Cristiano Barbaria</h1>
-        <p>Cyber Investigations | Digital Forensics</p>
+        <p>Cyber Investigations | Digital Forensics | DJ</p>
+        <p>Passionate about cybersecurity and electronic music. Exploring the world one beat and byte at a time.</p>
         <div class="buttons">
             <a href="https://github.com/Cristiano9151">Visit My GitHub</a>
             <a href="https://www.linkedin.com/in/cristiano05">Visit My LinkedIn</a>
+            <a href="mailto:cristianobarbaria@hotmail.com">Contact Me</a>
         </div>
     </div>
 </body>
