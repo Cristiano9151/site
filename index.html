@@ -10,29 +10,43 @@
             padding: 0;
             box-sizing: border-box;
             font-family: Arial, sans-serif;
+            scroll-behavior: smooth;
         }
         body {
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
-            height: 100vh;
             background: #121212;
             color: white;
             text-align: center;
-            overflow: hidden;
+            overflow-x: hidden;
+        }
+        header {
+            width: 100%;
+            padding: 15px 0;
+            background: #1e1e1e;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        header a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+            transition: color 0.3s;
+        }
+        header a:hover {
+            color: #ffcc00;
         }
         .container {
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 20px;
+            margin-top: 50px;
             opacity: 0;
             transform: translateY(20px);
             transition: opacity 1s ease-out, transform 1s ease-out;
-        }
-        h1 {
-            font-size: 2.5rem;
-            font-weight: bold;
         }
         .profile-img {
             width: 120px;
@@ -56,11 +70,12 @@
             padding: 12px 24px;
             border: 2px solid white;
             border-radius: 8px;
-            transition: 0.3s;
+            transition: all 0.3s;
         }
         a:hover {
             background: white;
             color: #121212;
+            transform: scale(1.1);
         }
         .toggle-theme {
             position: absolute;
@@ -72,6 +87,7 @@
             padding: 10px;
             cursor: pointer;
             border-radius: 8px;
+            transition: all 0.3s;
         }
         .toggle-theme:hover {
             background: white;
@@ -103,27 +119,23 @@
             font-size: 2rem;
             transition: opacity 0.8s ease-out;
         }
-        @keyframes typing {
-            from { width: 0; }
-            to { width: 100%; }
-        }
-        .typing {
-            display: inline-block;
-            white-space: nowrap;
-            overflow: hidden;
-            border-right: 3px solid white;
-            width: 0;
-            animation: typing 3s steps(30, end) forwards;
-        }
-        @keyframes dots {
-            0% { content: "Loading"; }
-            33% { content: "Loading."; }
-            66% { content: "Loading.."; }
-            100% { content: "Loading..."; }
-        }
         .loading-text::after {
             content: "Loading";
-            animation: dots 1s infinite steps(1, end);
+            display: inline-block;
+        }
+        .dot {
+            opacity: 0;
+            animation: fadeIn 1s infinite alternate;
+        }
+        .dot:nth-child(2) { animation-delay: 0.3s; }
+        .dot:nth-child(3) { animation-delay: 0.6s; }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        footer {
+            margin-top: 30px;
+            font-size: 1rem;
         }
     </style>
     <script>
@@ -139,17 +151,26 @@
                     loadingScreen.style.display = 'none';
                     container.style.opacity = '1';
                     container.style.transform = 'translateY(0)';
+                    document.querySelector('.typing').style.width = '100%';
                 }, 800);
             }, 2000);
         }
     </script>
 </head>
 <body>
-    <div class="loading-screen"><span class="loading-text"></span></div>
+    <div class="loading-screen">
+        <span class="loading-text">Loading<span class="dot">.</span><span class="dot">.</span><span class="dot">.</span></span>
+    </div>
+    <header>
+        <a href="#about">About Me</a>
+        <a href="#education">Education</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+    </header>
     <button class="toggle-theme" onclick="toggleTheme()">Toggle Theme</button>
     <div class="container">
         <img src="profile.jpeg" alt="Profile Picture" class="profile-img">
-        <h1><span class="typing">Cristiano Barbaria</span></h1>
+        <h1><span class="typing" style="white-space: nowrap; overflow: hidden; border-right: 3px solid white; width: 0; display: inline-block; animation: typing 3s steps(30, end) forwards;">Cristiano Barbaria</span></h1>
         <p>Cyber Investigations | Digital Forensics | DJ</p>
         <p>Passionate about cybersecurity and electronic music. Exploring the world one beat and byte at a time.</p>
         <div class="buttons">
@@ -158,5 +179,8 @@
             <a href="mailto:cristianobarbaria@hotmail.com">Contact Me</a>
         </div>
     </div>
+    <footer>
+        Made with ❤️
+    </footer>
 </body>
 </html>
