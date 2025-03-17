@@ -3,62 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cristiano Barbaria | Cyber & DJ</title>
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    <script defer src="script.js"></script>
+    <title>Cristiano</title>
     <style>
-        body {
-            font-family: 'Poppins', sans-serif;
+        * {
             margin: 0;
             padding: 0;
-            background-color: #121212;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: #121212;
             color: white;
             text-align: center;
         }
-        header {
-            padding: 20px;
-            background: #1f1f1f;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
         }
         h1 {
-            font-weight: 600;
+            font-size: 2.5rem;
+            font-weight: bold;
         }
-        .container {
-            padding: 50px 20px;
+        p {
+            font-size: 1.2rem;
+            opacity: 0.8;
         }
-        .btn {
-            background: #ff4500;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            cursor: pointer;
-            border-radius: 5px;
+        a {
             text-decoration: none;
-            font-size: 18px;
+            color: white;
+            padding: 12px 24px;
+            border: 2px solid white;
+            border-radius: 8px;
+            transition: 0.3s;
         }
-        .btn:hover {
-            background: #ff5733;
-        }
-        footer {
-            margin-top: 50px;
-            padding: 10px;
-            background: #1f1f1f;
+        a:hover {
+            background: white;
+            color: #121212;
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>Cristiano Barbaria</h1>
-        <p>Cyber Investigations | Digital Forensics | DJ</p>
-    </header>
     <div class="container">
-        <h2>Welcome to My Space</h2>
-        <p>I'm Cristiano, a cyber investigations & digital forensics student with a passion for DJing and drum & bass music.</p>
-        <a href="https://github.com/YourGitHubUsername" class="btn">Check My GitHub</a>
+        <h1>Cristiano</h1>
+        <p>Cyber Investigations | Digital Forensics</p>
+        <a href="https://github.com/Cristiano9151">Visit My GitHub</a>
     </div>
-    <footer>
-        <p>&copy; 2025 Cristiano Barbaria</p>
-    </footer>
 </body>
 </html>
