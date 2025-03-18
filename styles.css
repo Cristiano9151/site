@@ -673,7 +673,6 @@ footer {
     }
 }
 
-/* Additional adjustments for very small screens */
 @media (max-width: 480px) {
     .profile-img {
         width: 100px;
@@ -681,31 +680,86 @@ footer {
     }
     
     h1 {
+        font-size: 1.4rem;
+    }
+    
+    h2 {
         font-size: 1.3rem;
     }
     
-    /* Ensure skill categories fit well */
-    .skill-category {
-        min-width: unset;
-        width: 100%;
-        padding: 12px;
+    p {
+        font-size: 0.9rem;
     }
     
-    /* Prevent theme button and meme from overlapping content */
-    .theme-container {
-        top: 12px;
-        right: 12px;
+    .social-btn {
+        padding: 8px 15px;
+        font-size: 0.85rem;
+    }
+    
+    .mobile-menu {
+        width: 85%;
     }
     
     .meme-bubble {
-        width: 90px;
-        height: 90px;
-        top: 50px;
+        width: 100px;
+        height: 100px;
+        right: 0;
+    }
+
+    
+}
+
+/* Fix the positioning system for mobile */
+@media (max-width: 768px) {
+    body {
+        position: relative;
+        overflow-x: hidden;
+        height: 100%;
+        width: 100%;
     }
     
-    /* Better spacing for section content */
+    .main-wrapper {
+        position: relative;
+        height: 100vh;
+        overflow-y: auto;
+        padding-bottom: 70px; /* Space for footer */
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    /* Reset section visibility animations */
+    .section {
+        opacity: 1;
+        transform: none;
+        transition: none;
+        height: auto;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        padding-top: 80px; /* Increased padding to prevent overlap with header */
+    }
+    
+    /* This class won't be used anymore for animation on mobile */
+    .section.visible {
+        opacity: 1;
+        transform: none;
+    }
+    
+    /* Add specific spacing to prevent overlapping */
+    #home {
+        padding-top: 80px;
+    }
+    
+    #about, #education, #projects, #contact {
+        padding-top: 80px;
+        margin-top: 0;
+    }
+    
+    /* Ensure each section is fully contained */
     .container {
-        gap: 15px;
-        padding: 15px;
+        min-height: auto;
+        height: auto;
+        padding: 20px;
+        padding-bottom: 40px;
     }
 }
