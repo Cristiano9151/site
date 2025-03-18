@@ -104,27 +104,30 @@ header a:hover {
     transform: translateY(-2px);
 }
 
+/* Adjust the main wrapper to provide better vertical centering */
 .main-wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: flex-start; /* Changed from flex-start to allow natural centering */
     min-height: 100vh;
     width: 100%;
-    padding: 60px 0;
+    padding: 0; /* Changed from 60px 0 to remove excess padding */
     overflow-y: auto;
     max-height: 100vh;
     scroll-behavior: smooth;
-    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS devices */
+    -webkit-overflow-scrolling: touch;
 }
 
+
+/* Adjust the container padding to help with vertical centering */
 .container {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 25px;
-    padding: 40px 20px;
+    padding: 20px; /* Reduced from 40px to allow more space for content */
     opacity: 0;
     transform: translateY(20px);
     transition: opacity 1s, transform 1s;
@@ -132,18 +135,19 @@ header a:hover {
     max-width: 800px;
 }
 
+/* Improve vertical centering for desktop */
 .section {
     min-height: 100vh;
     margin-bottom: 20px;
-    padding-top: 70px;
+    padding-top: 60px; /* Reduced from 70px to move content up slightly */
     padding-bottom: 40px;
     width: 100%;
     max-width: 800px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    scroll-margin-top: 60px;
+    justify-content: center; /* This ensures vertical centering */
+    scroll-margin-top: 40px;
 }
 
 /* Section with visible class will fade in */
@@ -616,6 +620,7 @@ footer {
     .section {
         min-height: auto;
         padding-top: 50px;
+        scroll-margin-top: 80px;
     }
     
     .container {
@@ -761,5 +766,18 @@ footer {
         height: auto;
         padding: 20px;
         padding-bottom: 40px;
+    }
+}
+
+/* Make sure the mobile styles don't override these improvements */
+@media (min-width: 769px) {
+    /* Specific adjustments for desktop only */
+    .section {
+        padding-top: 40px; /* Even less padding on top for desktop */
+        min-height: 90vh; /* Slightly reduced min-height to help centering */
+    }
+    
+    #home {
+        padding-top: 60px; /* Give home section a bit more breathing room at the top */
     }
 }
