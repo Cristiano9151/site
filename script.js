@@ -223,24 +223,31 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     // Form submission handling
-    const contactForm = document.getElementById('contactForm');
-    if (contactForm) {
-        contactForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Get form values
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const message = document.getElementById('message').value;
-            
-            // Here you would typically send the data to a server
-            console.log('Form submitted:', { name, email, message });
-            
-            // Show success message (in a real implementation, this would happen after successful submission)
-            alert('Thank you for your message! I will get back to you soon.');
-            
-            // Reset form
-            contactForm.reset();
-        });
+const contactForm = document.getElementById('contactForm');
+if (contactForm) {
+    contactForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        // Get form values
+        const formData = new FormData(contactForm);
+        
+        try {
+            const response = await fetch('https://formspree.io/f/mvgkglpb', { // Replace with your Formspree ID
+                method: 'POST',
+                headers: { 'Accept': 'application/json' },
+                body: formData
+            });
+
+            if (response.ok) {
+                alert('Thank you! Your message has been sent.');
+                contactForm.reset();
+            } else {
+                throw new Error('Submission failed.');
+            }
+        } catch (error) {
+            alert('Error sending message. Please try again later.');
+        }
+    });
 }
+
 });
