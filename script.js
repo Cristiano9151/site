@@ -75,6 +75,34 @@ function checkVisibility() {
 }
 
 /**
+ * Check which sections are visible and animate them in
+ * Only runs on desktop, not mobile
+ */
+function checkVisibility() {
+    // Skip this function on mobile devices
+    if (window.innerWidth <= 768) {
+        // Make all sections visible immediately on mobile
+        sections.forEach(section => {
+            section.classList.add('visible');
+        });
+        return;
+    }
+    
+    const mainWrapper = document.querySelector('.main-wrapper');
+    const triggerPoint = mainWrapper.scrollTop + mainWrapper.clientHeight / 2;
+    
+    sections.forEach(section => {
+        // Get the section's position relative to the viewport
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.offsetHeight;
+        
+        if (sectionTop < triggerPoint && sectionTop + sectionHeight > mainWrapper.scrollTop) {
+            section.classList.add('visible');
+        }
+    });
+}
+
+/**
  * Enhanced smooth scrolling function
  * @param {Element} container - The scrollable container
  * @param {number} targetPosition - The target scroll position
@@ -178,11 +206,21 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 600);
     }, 1000);
     
+    
     // Add debug click to force show meme for testing
     themeButton.addEventListener('dblclick', function(e) {
         console.log('Debug: Force showing meme bubble');
         showMemeBubble();
     });
-
+    
+    
+    window.addEventListener('resize', function() {
+        // If resized to mobile, make all sections visible
+        if (window.innerWidth <= 768) {
+            sections.forEach(section => {
+                section.classList.add('visible');
+            });
+        }
+    });
     
 });
