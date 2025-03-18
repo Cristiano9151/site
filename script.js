@@ -74,6 +74,37 @@ function checkVisibility() {
     });
 }
 
+/**
+ * Enhanced smooth scrolling function
+ * @param {Element} container - The scrollable container
+ * @param {number} targetPosition - The target scroll position
+ * @param {number} duration - The duration of the scroll animation in milliseconds
+ */
+function smoothScrollTo(container, targetPosition, duration) {
+    const startPosition = container.scrollTop;
+    const distance = targetPosition - startPosition;
+    let startTime = null;
+    
+    function animation(currentTime) {
+        if (startTime === null) startTime = currentTime;
+        const timeElapsed = currentTime - startTime;
+        const progress = Math.min(timeElapsed / duration, 1);
+        
+        // Easing function - easeInOutQuad
+        const easeProgress = progress < 0.5 ? 
+            2 * progress * progress : 
+            1 - Math.pow(-2 * progress + 2, 2) / 2;
+            
+        container.scrollTop = startPosition + distance * easeProgress;
+        
+        if (timeElapsed < duration) {
+            requestAnimationFrame(animation);
+        }
+    }
+    
+    requestAnimationFrame(animation);
+}
+
 // Wait for DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', function() {
     let loadingScreen = document.querySelector('.loading-screen');
@@ -95,10 +126,12 @@ document.addEventListener('DOMContentLoaded', function() {
             const targetElement = document.querySelector(targetId);
             
             if (targetElement) {
-                mainWrapper.scrollTo({
-                    top: targetElement.offsetTop - 60,
-                    behavior: 'smooth'
-                });
+                // Use custom smooth scrolling instead of scrollTo
+                smoothScrollTo(
+                    mainWrapper,
+                    targetElement.offsetTop - 60,
+                    800 // Duration in milliseconds
+                );
             }
             
             // Close mobile menu if open
@@ -150,4 +183,6 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('Debug: Force showing meme bubble');
         showMemeBubble();
     });
+
+    
 });
