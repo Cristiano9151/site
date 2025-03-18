@@ -673,6 +673,7 @@ footer {
     }
 }
 
+/* Additional adjustments for very small screens */
 @media (max-width: 480px) {
     .profile-img {
         width: 100px;
@@ -680,29 +681,31 @@ footer {
     }
     
     h1 {
-        font-size: 1.4rem;
-    }
-    
-    h2 {
         font-size: 1.3rem;
     }
     
-    p {
-        font-size: 0.9rem;
+    /* Ensure skill categories fit well */
+    .skill-category {
+        min-width: unset;
+        width: 100%;
+        padding: 12px;
     }
     
-    .social-btn {
-        padding: 8px 15px;
-        font-size: 0.85rem;
-    }
-    
-    .mobile-menu {
-        width: 85%;
+    /* Prevent theme button and meme from overlapping content */
+    .theme-container {
+        top: 12px;
+        right: 12px;
     }
     
     .meme-bubble {
-        width: 100px;
-        height: 100px;
-        right: 0;
+        width: 90px;
+        height: 90px;
+        top: 50px;
+    }
+    
+    /* Better spacing for section content */
+    .container {
+        gap: 15px;
+        padding: 15px;
     }
 }
