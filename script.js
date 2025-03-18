@@ -3,6 +3,7 @@ const body = document.body;
 const typingElement = document.querySelector('.typing');
 const themeButton = document.querySelector('.toggle-theme');
 const memeBubble = document.getElementById('memeBubble');
+const sections = document.querySelectorAll('.section');
 
 /**
  * Toggle between light and dark themes
@@ -55,10 +56,29 @@ function toggleMobileMenu() {
     document.querySelector('.mobile-menu-btn').classList.toggle('active');
 }
 
+/**
+ * Check which sections are visible and animate them in
+ */
+function checkVisibility() {
+    const mainWrapper = document.querySelector('.main-wrapper');
+    const triggerPoint = mainWrapper.scrollTop + mainWrapper.clientHeight / 2;
+    
+    sections.forEach(section => {
+        // Get the section's position relative to the viewport
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.offsetHeight;
+        
+        if (sectionTop < triggerPoint && sectionTop + sectionHeight > mainWrapper.scrollTop) {
+            section.classList.add('visible');
+        }
+    });
+}
+
 // Wait for DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', function() {
     let loadingScreen = document.querySelector('.loading-screen');
-    let container = document.querySelector('.container');
+    let containers = document.querySelectorAll('.container');
+    const mainWrapper = document.querySelector('.main-wrapper');
     
     // Initial theme setup
     const isLight = body.classList.contains('light-mode');
@@ -72,12 +92,11 @@ document.addEventListener('DOMContentLoaded', function() {
             const targetId = this.getAttribute('href');
             if (targetId === '#') return;
             
-            const mainWrapper = document.querySelector('.main-wrapper');
             const targetElement = document.querySelector(targetId);
             
             if (targetElement) {
                 mainWrapper.scrollTo({
-                    top: targetElement.offsetTop - 70,
+                    top: targetElement.offsetTop - 60,
                     behavior: 'smooth'
                 });
             }
@@ -87,6 +106,9 @@ document.addEventListener('DOMContentLoaded', function() {
             document.querySelector('.mobile-menu-btn').classList.remove('active');
         });
     });
+    
+    // Add scroll event to check section visibility
+    mainWrapper.addEventListener('scroll', checkVisibility);
     
     // Reset and prepare typing animation
     typingElement.style.animation = 'none';
@@ -98,8 +120,12 @@ document.addEventListener('DOMContentLoaded', function() {
         loadingScreen.style.opacity = '0';
         setTimeout(() => {
             loadingScreen.style.display = 'none';
-            container.style.opacity = '1';
-            container.style.transform = 'translateY(0)';
+            
+            // Make the home section visible immediately
+            containers[0].classList.add('visible');
+            
+            // Check if any other sections are in view
+            checkVisibility();
             
             // Start typing animation
             typingElement.style.animation = 'typing 1.5s steps(30, end) forwards';
